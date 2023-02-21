@@ -1,0 +1,23 @@
+{
+  "pins" : [
+    {
+      "identity" : "swift-case-paths",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pointfreeco/swift-case-paths.git",
+      "state" : {
+        "revision" : "3c4eea896f8ee9cbe1c11d1d3d46b0f2809da958",
+        "version" : "0.12.0"
+      }
+    },
+    {
+      "identity" : "xctest-dynamic-overlay",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pointfreeco/xctest-dynamic-overlay",
+      "state" : {
+        "revision" : "62041e6016a30f56952f5d7d3f12a3fd7029e1cd",
+        "version" : "0.8.3"
+      }
+    }
+  ],
+  "version" : 2
+}
