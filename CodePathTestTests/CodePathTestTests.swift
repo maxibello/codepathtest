@@ -15,25 +15,6 @@ final class CodePathTestTests: XCTestCase {
     
     lazy var stringArray = Array.init(repeating: NSUUID().uuidString, count: 10000)
     
-    
-    func testWrite() throws {
-        self.measure {
-            for _ in 0..<10000 {
-                sut = .associated(token: "one")
-                sut = .associated(token: "another")
-            }
-        }
-    }
-    
-    func testWriteCasePath() throws {
-        self.measure {
-            for _ in 0..<10000 {
-                sut = (/TestEnum.associated).embed("one")
-                sut = (/TestEnum.associated).embed("another")
-            }
-        }
-    }
-    
     //average: 0.003,
     //relative standard deviation: 22.248%,
     //values: [0.004192, 0.002556, 0.002541, 0.002451, 0.002314, 0.002291, 0.002279, 0.002257, 0.002263, 0.002213],
@@ -56,7 +37,29 @@ final class CodePathTestTests: XCTestCase {
         }
     }
     
+    //average: 0.011,
+    //relative standard deviation: 12.518%,
+    //values: [0.014859, 0.010406, 0.010271, 0.011034, 0.010328, 0.010903, 0.010510, 0.009962, 0.010487, 0.012266]
+    func testReadNestedValue() throws {
+        self.measure {
+            for _ in 0..<10000  {
+                _ = TestEnum.nestedAssociatedValue(.associated(token: Int.random(in: 0..<10000)))
+            }
+        }
+    }
     
+    //average: 0.115,
+    //relative standard deviation: 18.859%,
+    //values: [0.179780, 0.108384, 0.108666, 0.107632, 0.107366, 0.107339, 0.105199, 0.105852, 0.109275, 0.109452]
+    func testReadNestedValueCasePath() throws {
+        self.measure {
+            for _ in 0..<10000  {
+                _ = (/TestEnum.nestedAssociatedValue..NestedEnum.associated).extract(
+                    from: TestEnum.nestedAssociatedValue(.associated(token: Int.random(in: 0..<10000)))
+                )
+            }
+        }
+    }
     
     //average: 0.006,
     //relative standard deviation: 9.625%,
@@ -123,6 +126,4 @@ final class CodePathTestTests: XCTestCase {
             }
         }
     }
-    
-    
 }
