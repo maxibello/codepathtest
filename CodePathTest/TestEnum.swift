@@ -22,6 +22,16 @@ enum NestedEnum {
 
 enum SecondNested {
     case associated(token: Int)
+    case nestedAssociated(ThirdNested)
+}
+
+enum ThirdNested {
+    case associated(sToken: String)
+    case nestedAssociated(ForthNested)
+}
+
+enum ForthNested {
+    case associated(sToken: String)
 }
 
 class TestReference {

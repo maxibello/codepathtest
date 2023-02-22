@@ -105,6 +105,53 @@ final class CodePathTestTests: XCTestCase {
         }
     }
     
+    
+    //average: 0.003,
+    //relative standard deviation: 20.181%,
+    //values: [0.005278, 0.003357, 0.003117, 0.003163, 0.003050, 0.003444, 0.002959, 0.002858, 0.003143, 0.002929]
+    func testWriteNested3Random() throws {
+        self.measure {
+            for str in stringArray {
+                sut = .nestedAssociatedValue(.nestedAssociated(.nestedAssociated(.associated(sToken: str))))
+            }
+        }
+    }
+    
+    //average: 0.059,
+    //relative standard deviation: 11.435%,
+    //values: [0.076608, 0.065146, 0.057261, 0.056094, 0.054694, 0.054744, 0.054892, 0.056280, 0.054239, 0.056198]
+    func testWriteNested3RandomCasePath() throws {
+        self.measure {
+            for str in stringArray {
+                sut = (/TestEnum.nestedAssociatedValue..NestedEnum.nestedAssociated..SecondNested.nestedAssociated..ThirdNested.associated).embed(str)
+            }
+        }
+    }
+    
+    //average: 0.003,
+    //relative standard deviation: 20.974%,
+    //values: [0.004973, 0.003051, 0.002980, 0.002916, 0.002786, 0.002894, 0.003013, 0.002862, 0.002694, 0.002607]
+    func testWriteNested4Random() throws {
+        self.measure {
+            for str in stringArray {
+                sut = .nestedAssociatedValue(.nestedAssociated(.nestedAssociated(.nestedAssociated(.associated(sToken: str)))))
+            }
+        }
+    }
+    
+    //average: 0.077,
+    //relative standard deviation: 14.775%,
+    //values: [0.107213, 0.088012, 0.080384, 0.071818, 0.072060, 0.074069, 0.069703, 0.070118, 0.069944, 0.069905]
+    func testWriteNested4RandomCasePath() throws {
+        self.measure {
+            for str in stringArray {
+                sut = (/TestEnum.nestedAssociatedValue..NestedEnum.nestedAssociated..SecondNested.nestedAssociated..ThirdNested.nestedAssociated..ForthNested.associated).embed(str)
+            }
+        }
+    }
+    
+    
+    
     //average: 0.013,
     //relative standard deviation: 12.306%,
     //values: [0.017242, 0.013185, 0.013001, 0.011721, 0.012978, 0.012285, 0.011530, 0.013916, 0.013884, 0.011492],
@@ -126,4 +173,6 @@ final class CodePathTestTests: XCTestCase {
             }
         }
     }
+    
+    
 }
